@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生详情</title>
+    <script src="/day_ssm/static/js/jquery/jquery-1.11.3.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(function () {
+            $.ajax({
+                url:'/day_ssm/stu/5',
+                // url:'/day_ssm/stu/findById',
+                typr:'get',
+                dataType:'json',
+                success:function (data) {
+                    $("#stuNo").val(data.stuNo);
+                    $("#stuName").val(data.stuName);
+                    $("#stuSex").val(data.stuSex);
+                    $("#stuAge").val(data.stuAge);
+                    $("#picPath").attr("src","/day_ssm/static/images/"+data.picPath);
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <td>学号</td>
+        <td><input id="stuNo" /></td>
+    </tr>
+    <tr>
+        <td>姓名</td>
+        <td><input id="stuName" /></td>
+    </tr>
+    <tr>
+        <td>性别</td>
+        <td><input id="stuSex" /></td>
+    </tr>
+    <tr>
+        <td>年龄</td>
+        <td><input id="stuAge" /></td>
+    </tr>
+    <tr>
+        <td>头像</td>
+        <td><img src="#" alt="找不到" id="picPath"></td>
+    </tr>
+</table>
+</body>
+</html>

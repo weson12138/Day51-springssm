@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mybatis sql映射文件 -->
+<!-- namespace：整合到spring之后，要求它的值必须与dao接口的全路径名一致 -->
+<mapper namespace="com.dao.StudentDao">
+    <!-- 方法名与id对应 -->
+    <!-- 注意：sql后不能带分号 -->
+    <!--
+        1) id属性：方法名与id对应
+        2) resultType：配置结果类型，注意：列名要与属性名对应
+    -->
+    <select id="findAll" resultType="com.po.Student">
+        select * from student
+    </select>
+
+    <select id="getCount" resultType="int">
+        select count(*) from student
+    </select>
+
+    <select id="getCondition1" resultType="Student"  parameterType="com.po.Student">
+        select * from student where 1=1
+        <if test="stuNo!=null">
+            and stuNo = #{stuNo}
+        </if>
+        <if test="stuName!=null">
+            and stuName like #{stuName}
+        </if>
+    </select>
+
+    <select id="getCondition2" resultType="com.po.Student" parameterType="java.util.Map">
+        select * from student
+        <where>
+            <if test="stuNo!= null">
+                and stuNo = #{stuNo}
+            </if>
+            <if test="stuName!= null">
+                and stuName like #{stuName}
+            </if>
+            <choose>
+                <when test="stuAge == 28">
+                    and stuAge = ${stuAge}
+                </when>
+                <when test="stuAge == 21">
+                    and stuAge = ${stuAge}
+                </when>
+                <otherwise>
+                    and stuAge is not null
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <!-- 单对象查询-->
+    <select id="findById" resultType="com.po.Student" parameterType="int">
+        select * from student where stuNo = #{stuNo}
+    </select>
+
+    <!-- 增加 -->
+    <insert id="saveStudent1" parameterType="com.po.Student">
+        insert into student(stuNo,stuName,stuSex,stuAge,picPath) values (#{stuNo},#{stuName},#{stuSex},#{stuAge},#{picPath})
+    </insert>
+
+    <!-- 增加  自增长-->
+    <insert id="saveStudent2" parameterType="com.po.Student"
+            useGeneratedKeys="true" keyProperty="stuNo" keyColumn="stuNo">
+         insert into student(stuName,stuSex,stuAge,picPath) values (#{stuName},#{stuSex},#{stuAge},#{picPath})
+    </insert>
+
+
+    <!-- 修改 -->
+    <update id="updateStudent" parameterType="com.po.Student">
+        update student set stuName=#{stuName},stuSex=#{stuSex} where stuNo = #{stuNo}
+    </update>
+
+
+    <delete id="deleteStudent" parameterType="com.po.Student">
+        delete from student where stuNo = #{stuNo}
+    </delete>
+
+</mapper>

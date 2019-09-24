@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf示例1</title>
+</head>
+<body>
+ <h2>#numbers:数字格式化</h2>
+    <p>old number:<span th:text="${testNumber}" /></p>
+    <p>保留2位小数，整数部分随意：<span th:text="${#numbers.formatDecimal(testNumber,0,2)}" /></p>
+
+ <h2>#dates</h2>
+ <p>old data:<span th:text="${testDate}"/></p>
+ <p>格式化日期：<span th:text="${#dates.format(testDate,'yyyy/MM/dd HH:mm:ss')}" /></p>
+ <p>获得月份：<span th:text="${#dates.month(testDate)}" /></p>
+ <p>获得月份的名称：<span th:text="${#dates.monthName(testDate)}"/></p>
+
+ <h2>#strings</h2>
+<p>old data:<span th:text="${testString}" /></p>
+<p>isEmpty:<span th:text="${#strings.isEmpty(testString)}"/></p>
+<p>equals:<span th:text="${#strings.equals(testString,'abcd1234')}" /></p>
+<p>indexOf:<span th:text="${#strings.indexOf(testString,'c')}"/> </p>
+<p>tuUpperCase:<span th:text="${#strings.toUpperCase(testString)}"/> </p>
+
+<h2>#bools</h2>
+<p>old data:<span th:text="${testBool}"/></p>
+<p>isTrue:<span th:text="${#bools.isTrue(testBool)}"/> </p>
+
+<h2>#arrays</h2>
+<div th:if = "${not #arrays.isEmpty(testArray)}">
+    <p th:text="${#arrays.length(testArray)}"/>
+    <p th:text="${#arrays.contains(testArray,5)}"/>
+</div>
+
+<h2>#list</h2>
+<div th:if="${not #lists.isEmpty(testList)}">
+    <p th:text="${#lists.size(testList)}"/>
+    <p th:text="${#lists.contains(testList,1000)}"/>
+</div>
+<p th:text="${#lists.sort(testList)}"/>
+
+
+<h2>#maps</h2>
+<div th:if="${not #maps.isEmpty(testMap)}">
+    <p th:text="${#maps.size(testMap)}"/>
+    <p th:text="${#maps.containsKey(testMap,'name')}"/>
+    <p th:text="${#maps.containsValue(testMap,'20')}"/>
+</div>
+
+</body>
+</html>

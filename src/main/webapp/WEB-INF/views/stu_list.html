@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生详情</title>
+    <script src="/day_ssm/static/js/jquery/jquery-1.11.3.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(function () {
+            $.ajax({
+                url:'/day_ssm/stu/findAll',
+                type:'post',
+                dataType:'json',
+                success:function (data) {
+                    alert(data);
+                    jQuery.each(data,function (i, ele) {
+                        $("#tbody").append($('<tr><td>'+ele.stuNo+'</td>\n' +
+                            '        <td>'+ele.stuName+'</td>\n' +
+                            '        <td>'+ele.stuSex+'</td>\n' +
+                            '        <td>'+ele.stuAge+'</td>\n' +
+                            '        <td><a href="#">删除</a><a href="#">修改</a> </td></tr>'))
+                    })
+
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+    </table>
+</body>
+</html>

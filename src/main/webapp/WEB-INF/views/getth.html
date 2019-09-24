@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf示例1</title>
+</head>
+<body>
+    <h2>th:text</h2>
+    <p th:text="${thTest}"/>
+    <p th:utext="${thUTest}"/>
+
+    <h2>th:value</h2>
+    <input type="text" th:value="${thValue}" size="50">
+
+    <h2>th:object</h2>
+    <div th:object="${thObject}">
+        <p th:text="*{stuNo}"/>
+        <p th:text="*{stuName}"/>
+    </div>
+
+    <h2>th:if</h2>
+    <p th:text="${thIF}" th:if="${not #strings.isEmpty(thIf)}"/>
+
+
+    <h2>th:each</h2>
+    <table border="1">
+        <tr th:each="str1,iterStat:${thEach}" th:class="${iterStat.odd?'odd':'even'}">
+            <td th:text="${str1}"/>
+            <td th:text="${iterStat.index+'---'+iterStat.count}"></td>
+        </tr>
+        <tr>
+            <td th:text="${str1}" th:each="str1,iterStat:${thEach}"/>
+        </tr>
+    </table>
+
+</body>
+</html>
